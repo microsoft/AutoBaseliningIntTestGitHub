@@ -1,0 +1,76 @@
+# This pipeline demonstrates how to build directly in a Windows VM
+name: PipelineBuildingInWindowsVM
+trigger:
+  branches:
+    include:
+      - '*'
+pr:
+  branches:
+    include:
+      - '*'
+
+parameters:
+- name: poolName
+  type: string
+  default: pt-validation-ppe
+
+- name: image
+  type: string
+  default: pt-validation-ppe-windows2022
+
+- name: os
+  type: string
+  default: windows
+
+resources:
+  repositories:
+  - repository: 1ESPipelineTemplates
+    type: git
+    name: 1ESPipelineTemplates/1ESPipelineTemplates
+    ref: refs/tags/release
+
+extends:
+  template: v1/1ES.Unofficial.PipelineTemplate.yml@1ESPipelineTemplates
+  parameters:
+    pool:
+      name: ${{ parameters.poolName }}
+      image: ${{ parameters.image }}
+      os: ${{ parameters.os }}
+    sdl:
+      credscan:
+        enabled: true
+      binskim:
+        enabled: true
+      psscriptanalyzer:
+        enabled: true
+        break: true
+      prefast:
+        enabled: true
+      autobaseline:
+        enableForGitHub: true
+    stages:
+    - stage: stage
+      displayName: Building in a Windows VM
+      jobs:
+      - job: job
+        displayName: Job
+        templateContext:
+          outputs:
+          - output: pipelineArtifact
+            targetPath: $(System.DefaultWorkingDirectory)/GitOpsPublicRepoTesting/Samples
+            artifactName: Samples
+        steps:
+        - powershell: echo "Hello World from Job"
+        - checkout: self
+          persistCredentials: true
+    - stage: stage2 # added for quick rerun
+      jobs:
+      - job: job2
+        steps:
+        - script: echo Hello, world!
+          displayName: 'Run a one-line script'
+        - script: |
+            echo Add other tasks to build, test, and deploy your project.
+            echo See https://aka.ms/yaml
+          displayName: 'Run a multi-line script'
+      
