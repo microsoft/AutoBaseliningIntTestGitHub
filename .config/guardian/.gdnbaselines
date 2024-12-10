@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "helpUri": "https://eng.ms/docs/microsoft-security/security/azure-security/cloudai-security-fundamentals-engineering/security-integration/guardian-wiki/microsoft-guardian/general/baselines"
+  },
+  "version": "1.0.0",
+  "baselines": {
+    "default": {
+      "name": "default",
+      "createdDate": "2024-12-10 19:22:52Z",
+      "lastUpdatedDate": "2024-12-10 19:22:52Z"
+    }
+  },
+  "results": {
+    "863f783dfe8a42770bf037c8be11597355584f78da3c5031e1b3a185858f1134": {
+      "signature": "863f783dfe8a42770bf037c8be11597355584f78da3c5031e1b3a185858f1134",
+      "alternativeSignatures": [
+        "a0dc02524938f1f6eba456c73457645d978dfd8f6c5a28006bbd26311e0c585c"
+      ],
+      "target": "GitOpsPublicRepoTesting/Samples/error.ps1",
+      "line": 5,
+      "memberOf": [
+        "default"
+      ],
+      "tool": "psscriptanalyzer",
+      "ruleId": "PSAvoidUsingConvertToSecureStringWithPlainText",
+      "createdDate": "2024-12-10 19:22:52Z",
+      "expirationDate": "2025-05-29 19:49:39Z",
+      "justification": "This error is baselined with an expiration date of 180 days from 2024-12-10 19:49:39Z"
+    }
+  }
+}
