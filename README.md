@@ -1,2 +1,2 @@
 # AutoBaseliningIntTestGitHub
-Repo to perform integration tests for autobaselining
+Repo to perform integration testing for autobaselining.
